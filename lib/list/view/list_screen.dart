@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:trello_demo/card/view/card_screen.dart';
+import 'package:trello_demo/list/view/widgets/draggable_list.dart';
 import 'package:trello_demo/list/view/widgets/list_contrainer.dart';
 
 class ListScreen extends StatefulWidget {
@@ -18,16 +19,10 @@ class _ListScreenState extends State<ListScreen> {
         title: Text('Trello Demo Projects'),
         backgroundColor: Color.fromRGBO(7, 114, 186, 1),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-            children: List.generate(
-                5,
-                    (index) => InkWell(onTap: (){
-                      Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: CardScreen()));
+      body: InkWell(onTap: (){
+                    Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: CardScreen()));
 
-                    },child: ListContainers()))),
-      ),
+                  },child: HorizontalExample()),
     );
   }
 }
