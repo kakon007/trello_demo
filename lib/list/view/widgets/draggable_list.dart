@@ -37,6 +37,53 @@ class _HorizontalExample extends State<HorizontalExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) {
+                return Dialog(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Add List",
+                          style:
+                          TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          decoration: InputDecoration(hintText: "List Title"),
+                          controller: _cardTextController,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Center(
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            _lists.add(InnerList(name:_cardTextController.text.trim() , children: []));
+                            print('Tapped');
+                            setState(() {
+                            });
+                          },
+                          child: Text("Add List"),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              });
+        },
+      ),
       //drawer: NavigationDrawer(),
       body: DragAndDropLists(
         listGhost: Padding(
@@ -60,7 +107,7 @@ class _HorizontalExample extends State<HorizontalExample> {
         onListReorder: _onListReorder,
         axis: Axis.horizontal,
         listWidth: 280,
-        listDraggingWidth: 200,
+        listDraggingWidth: 300,
         listInnerDecoration: BoxDecoration(
           color: Color.fromRGBO(38, 171, 226, 1),
           borderRadius: BorderRadius.all(
@@ -100,7 +147,7 @@ class _HorizontalExample extends State<HorizontalExample> {
               ),
               padding: EdgeInsets.all(10),
               child: Text(
-                'Jahid',
+                innerList.name,
                 style: TextStyle(color: Colors.black),
               ),
             ),
